@@ -1,34 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Omicrxn Website Portfolio
 
-## Getting Started
+Welcome to the GitHub repository of my portfolio website. This portfolio showcases my skills, projects, and experiences as a developer and designer.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Table of Contents
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Omicrxn Website Portfolio](#omicrxn-website-portfolio)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Technologies Used](#technologies-used)
+  - [Features](#features)
+  - [Contact](#contact)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Introduction
 
-## Learn More
+This portfolio is a comprehensive view into my work as a developer. Here you will find:
 
-To learn more about Next.js, take a look at the following resources:
+- My work
+- Contact information
+- Blog posts and articles I've written (comming soon)
+- And more
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Technologies Used
 
-## Deploy on Vercel
+- Typescript
+- ReactJS
+- NextJS 13
+- Tailwind
+- ChatGPT (who doesn't)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Features
+
+- **Responsive Design**: Works on desktop, mobile, and tablets.
+- **Fast Loading**: Optimized for fast page loading.
+- **SEO Optimized**: Follows best practices for SEO.
+- **Interactive**: Features interactive elements to showcase my skills.
+
+---
+
+## Contact
+
+- GitHub: [@Omicrxn](https://github.com/Omicrxn)
+- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/alejandro-avila-rodriguez/)
+- Email: alexavila0128@gmail.com
+- Website: [omicrxn.com](https://www.omicrxn.com)
+
+---
