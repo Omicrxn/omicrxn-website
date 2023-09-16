@@ -9,14 +9,7 @@ export default function Home() {
       <BackgroundLines/>
       <Carousel/>
       {/* Left Text */}
-      <div className=" absolute z-10 text-omi-black p-4 m-6">
-        <div className="text-7xl font-semibold">
-          <h1>Beyond imagination</h1>
-          <h1>Within Reach</h1>
-        </div>
-
-        <p className="text-2xl">Omicrxn - Designer & Developer</p>
-      </div>
+      
     </main>
   );
 }
