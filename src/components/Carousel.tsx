@@ -53,7 +53,7 @@ export default function Carousel() {
       <button
         ref={buttonRef}
         onClick={handleMove}
-        className="absolute top-0 right-0 z-40 p-4 bg-blue-500 text-black"
+        className="absolute top-1/2 right-0 z-40 p-4 bg-blue-500 text-black"
       >
         Move
       </button>

@@ -1,22 +1,27 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Nunito } from 'next/font/google'
+import Header from "@/components/Header";
+import "./globals.css";
+import type { Metadata } from "next";
+import { Nunito } from "next/font/google";
 
-const nunito = Nunito({ subsets: ['latin'] })
+const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Omicrxn',
-  description: 'Welcome to my portfolio, I am Omicrxn a software developer and designer.',
-}
+  title: "Omicrxn",
+  description:
+    "Welcome to my portfolio, I am Omicrxn a software developer and designer.",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={nunito.className}>{children}</body>
+      <body className={`${nunito.className} bg-omi-white overflow-hidden`}>
+        <Header />
+        {children}
+      </body>
     </html>
-  )
+  );
 }
