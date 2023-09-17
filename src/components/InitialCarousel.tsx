@@ -1,6 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { AnimationSequence, easeIn, easeInOut, motion, spring, useAnimate } from "framer-motion";
+import {
+  AnimationSequence,
+  easeIn,
+  easeInOut,
+  motion,
+  spring,
+  useAnimate,
+} from "framer-motion";
 import Image from "next/image";
 const imageList = [
   "/projectImages/0.png",
@@ -23,39 +30,67 @@ const ImageContainer = ({ index }: { index: number }) => {
 
 export default function InitialCarousel() {
   const [index, setIndex] = useState(0);
-  const [animationComplete, setAnimationComplete] = useState(false);
+  const [animationComplete, setAnimationComplete] = useState(true);
   const [scope, animate] = useAnimate();
+  const [intervalTime, setIntervalTime] = useState(1000);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
+    let speedUpTimer: NodeJS.Timeout;
     if (!animationComplete) {
       timer = setInterval(() => {
         setIndex((prevIndex) => (prevIndex + 1) % imageList.length);
-      }, 1000);
+      }, intervalTime);
+
+      speedUpTimer = setInterval(() => {
+        setIntervalTime((prevIntervalTime) =>
+          Math.max(120, prevIntervalTime - 120)
+        ); // Min of 100ms
+      }, intervalTime);
     }
 
     return () => {
       if (timer) {
         clearInterval(timer);
       }
+      if (speedUpTimer) {
+        clearInterval(speedUpTimer);
+      }
     };
-  }, [animationComplete]);
+  }, [animationComplete, intervalTime]);
 
   useEffect(() => {
     async function imageAnimation() {
       await animate(
         scope.current,
-        { scaleX: 0.5,scaleY:0.5, },
+        { x: "0%" },
+        {
+          type: "spring",
+          ease: "easeOut",
+          duration: 0.5,
+          onComplete() {
+            setAnimationComplete(false);
+          },
+        }
+      );
+      await animate(
+        scope.current,
+        { scaleX: 0.5, scaleY: 0.5 },
         {
           duration: 5,
-          ease:"easeIn",
+          type: "tween",
+          ease: "circIn",
           onComplete() {
             console.log("complete");
             setAnimationComplete(true);
           },
         }
       );
-      await animate(scope.current, {scaleX:0.35, scaleY:1, x:"35vw"});
+      await animate(
+        scope.current,
+        { scaleX: 0.35, scaleY: 1, x: "35vw" },
+        { delay: 0.5, type: "tween", ease: "easeIn" }
+      );
     }
     imageAnimation();
   }, []);
@@ -63,6 +98,9 @@ export default function InitialCarousel() {
   return (
     <motion.div
       ref={scope}
+      initial={{ x: "100%" }}
+      whileInView={"visible"}
+      viewport={{ once: true }}
       className="absolute w-full h-full mix-blend-difference"
     >
       <ImageContainer index={index} />
