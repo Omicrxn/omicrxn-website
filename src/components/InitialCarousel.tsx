@@ -102,7 +102,7 @@ export default function InitialCarousel({onAnimationFinished}:{onAnimationFinish
       );
       await animate(
         scope.current,
-        { scaleX: 0.35, scaleY: 1, x: "35vw", opacity:0 },
+        { scaleX: 0.35, scaleY: 1, x: "35vw", },
         { delay: 0.15, type: "tween", ease: "easeInOut", onComplete() {
             onAnimationFinished()
         }, }
