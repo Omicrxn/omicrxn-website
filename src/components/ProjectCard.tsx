@@ -8,7 +8,7 @@ export default function ProjectCard({
   }) {
   return (
     <div className='relative h-full w-full'>
-        <Image src={`/projectImages/${index}.png`} fill={true} alt='Double U Project' className=''/>
+        <Image src={`/projectImages/${index}.png`} fill={true} objectFit='cover' alt='Double U Project' className=''/>
     </div>
   )
 }
