@@ -23,15 +23,17 @@ const ImageContainer = ({ index }: { index: number }) => {
       src={currentImage}
       alt="Dynamic"
       fill={true}
-      className="invert rounded-xl w-full h-full"
+      className="invert w-full h-full"
     />
   );
 };
 
-export default function InitialCarousel() {
+export default function InitialCarousel({onAnimationFinished}:{onAnimationFinished:Function}) {
   const [index, setIndex] = useState(0);
   const [animationComplete, setAnimationComplete] = useState(true);
   const [scope, animate] = useAnimate();
+  const [childScope, childAnimate] = useAnimate();
+  const [imgScope, imgAnimate] = useAnimate();
   const [intervalTime, setIntervalTime] = useState(1000);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function InitialCarousel() {
 
       speedUpTimer = setInterval(() => {
         setIntervalTime((prevIntervalTime) =>
-          Math.max(120, prevIntervalTime - 120)
+          Math.max(100, prevIntervalTime - 290)
         ); // Min of 100ms
       }, intervalTime);
     }
@@ -61,13 +63,14 @@ export default function InitialCarousel() {
 
   useEffect(() => {
     async function imageAnimation() {
-      await animate(
-        scope.current,
-        { x: "0%" },
+      await childAnimate(childScope.current, { x: "0%" });
+      await imgAnimate(imgScope.current,{opacity:1})
+      childAnimate(
+        childScope.current,
+        { opacity: 0 },
         {
-          type: "spring",
-          ease: "easeOut",
-          duration: 0.5,
+          duration: 0.1,
+          delay:0.5,
           onComplete() {
             setAnimationComplete(false);
           },
@@ -75,9 +78,20 @@ export default function InitialCarousel() {
       );
       await animate(
         scope.current,
-        { scaleX: 0.5, scaleY: 0.5 },
+        { scaleX: 0.75, scaleY:0.75},
         {
-          duration: 5,
+          type: "spring",
+          ease: "easeOut",
+          duration: 0.5,
+          delay: 0.5,
+        }
+      );
+      
+      await animate(
+        scope.current,
+        { scaleX: 0.5, scaleY: 0.5, borderRadius: 16 },
+        {
+          duration: 3,
           type: "tween",
           ease: "circIn",
           onComplete() {
@@ -88,8 +102,10 @@ export default function InitialCarousel() {
       );
       await animate(
         scope.current,
-        { scaleX: 0.35, scaleY: 1, x: "35vw" },
-        { delay: 0.5, type: "tween", ease: "easeIn" }
+        { scaleX: 0.35, scaleY: 1, x: "35vw", opacity:0 },
+        { delay: 0.15, type: "tween", ease: "easeInOut", onComplete() {
+            onAnimationFinished()
+        }, }
       );
     }
     imageAnimation();
@@ -98,12 +114,17 @@ export default function InitialCarousel() {
   return (
     <motion.div
       ref={scope}
-      initial={{ x: "100%" }}
-      whileInView={"visible"}
-      viewport={{ once: true }}
-      className="absolute w-full h-full mix-blend-difference"
+      initial={{ borderRadius: 0 }}
+      className="absolute overflow-hidden w-full h-full mix-blend-difference"
     >
-      <ImageContainer index={index} />
+      <motion.div ref={imgScope} initial={{ opacity: 0 }}>
+        <ImageContainer index={index} />
+      </motion.div>
+      <motion.div
+        ref={childScope}
+        initial={{ x: "100%" }}
+        className="w-full h-full bg-omi-black invert"
+      ></motion.div>
     </motion.div>
   );
 }
