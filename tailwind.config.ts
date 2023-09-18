@@ -9,6 +9,9 @@ const config: Config = {
   theme: {
     
     extend: {
+      fontFamily:{
+        anko:['var(--font-anko)']
+      },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',

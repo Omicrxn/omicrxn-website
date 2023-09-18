@@ -1,17 +1,11 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import ProjectCard from "./ProjectCard";
-import {
-  AnimatePresence,
-  animate,
-  motion,
-  spring,
-  useAnimation,
-  useAnimationControls,
-} from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
+import Image from "next/image";
 export default function Carousel() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [indexes, setIndexes] = useState([0]); // Keep track of the visible indexes
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [indexes, setIndexes] = useState<number[]>([]); // Keep track of the visible indexes
   const textRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [elementWidth, setElementWidth] = useState(0);
@@ -20,9 +14,9 @@ export default function Carousel() {
   const [gradientStop, setGradientStop] = useState(0);
   useEffect(() => {
     const animateItem = async () => {
-      await controlsArray[activeIndex - 1].start(
+      await controlsArray[activeIndex].start(
         {
-          x: `calc((12.5%*8)*${activeIndex - 1})`,
+          x: `calc((12.5%*8)*${activeIndex})`,
           opacity: 1,
           width: "12.5%",
           // transformOrigin: "left",
@@ -30,7 +24,7 @@ export default function Carousel() {
         { ease: "easeIn" }
       );
     };
-    if (activeIndex > 0) {
+    if (activeIndex >= 0) {
       animateItem();
     }
   }, [activeIndex]);
@@ -59,30 +53,30 @@ export default function Carousel() {
 
   const handleMove = () => {
     setActiveIndex((prevIndex) => {
-      const newIndex = prevIndex + 1;
+    
+      console.log("prevIndex", prevIndex)
+      var newIndex = prevIndex+1;
       if (newIndex > items.length) {
         return prevIndex;
       }
       setIndexes((prevIndexes) => [...prevIndexes, newIndex]);
+      console.log("indexes: ",indexes)
       return newIndex;
     });
-    console.log(activeIndex);
   };
+  console.log("indexes: ",indexes)
 
   useEffect(() => {
-    setTimeout(()=> {
+    setTimeout(() => {
       setGradientStop(
         activeIndex > 1
           ? activeIndex * elementWidth - 16 - 24
           : (activeIndex * elementWidth) / 3 - 16 - 24
       );
-    },1100)
-    
+    }, 1100);
   }, [activeIndex]);
 
-  console.log("elementwidth:", elementWidth); // Debug log
-  // console.log("active indx:", activeIndex); // Debug log
-  // console.log("gradient:", gradientStop); // Debug log
+
   const gradientStyle = {
     backgroundImage: `linear-gradient(90deg, white ${gradientStop}px, black ${gradientStop}px)`,
     backgroundClip: "text",
@@ -96,9 +90,14 @@ export default function Carousel() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 2 }}
         onClick={handleMove}
-        className="absolute top-1/2 right-0 z-40 p-4 bg-blue-500 text-black"
+        className="absolute top-1/2 right-0 z-40 p-4"
       >
-        Move
+        <Image
+          src={"/icons/arrow-right.svg"}
+          width={24}
+          height={24}
+          alt={"Next project arrow"}
+        />
       </motion.button>
       {items.map((item, index) => (
         <motion.div
@@ -116,7 +115,7 @@ export default function Carousel() {
           // exit={{ opacity: 0 }}
           className="absolute bg-black transition-all duration-1000 ease-in-out min-h-full h-full "
         >
-          <ProjectCard index={item} />
+          <ProjectCard isMini={indexes.includes(index)} index={item} />
         </motion.div>
       ))}
       <motion.div
@@ -131,7 +130,7 @@ export default function Carousel() {
         </div>
 
         <p
-          className="text-2xl text-transparent font-semibold transition-all"
+          className="text-2xl text-transparent font-[400] italic font-anko transition-all"
           style={gradientStyle}
         >
           Omicrxn - Designer & Developer

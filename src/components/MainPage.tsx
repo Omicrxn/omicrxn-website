@@ -15,7 +15,7 @@ export default function MainPage() {
     if (!isInitialLoad) {
       setShowPage(false);
       setShowInitialAnimation(true);
-        // sessionStorage.setItem("initialLoadDone", "true");
+        sessionStorage.setItem("initialLoadDone", "true");
     }
   }, []);
   return (
