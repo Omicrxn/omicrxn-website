@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import {
   AnimationSequence,
+  delay,
   easeIn,
   easeInOut,
   motion,
@@ -46,7 +47,7 @@ export default function InitialCarousel({onAnimationFinished}:{onAnimationFinish
 
       speedUpTimer = setInterval(() => {
         setIntervalTime((prevIntervalTime) =>
-          Math.max(100, prevIntervalTime - 290)
+          Math.max(100, prevIntervalTime - 295)
         ); // Min of 100ms
       }, intervalTime);
     }
@@ -102,7 +103,7 @@ export default function InitialCarousel({onAnimationFinished}:{onAnimationFinish
       );
       await animate(
         scope.current,
-        { scaleX: 0.35, scaleY: 1, x: "35vw", },
+        { scaleX: 0.375, scaleY: 1, x: `32%`,opacity:0.5 },
         { delay: 0.15, type: "tween", ease: "easeInOut", onComplete() {
             onAnimationFinished()
         }, }
@@ -117,7 +118,7 @@ export default function InitialCarousel({onAnimationFinished}:{onAnimationFinish
       initial={{ borderRadius: 0 }}
       className="absolute overflow-hidden w-full h-full mix-blend-difference"
     >
-      <motion.div ref={imgScope} initial={{ opacity: 0 }}>
+      <motion.div ref={imgScope} initial={{ opacity: 0 } }>
         <ImageContainer index={index} />
       </motion.div>
       <motion.div

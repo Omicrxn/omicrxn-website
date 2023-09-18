@@ -17,6 +17,7 @@ export default function Carousel() {
   const [elementWidth, setElementWidth] = useState(0);
   const items = [0, 1, 2, 3, 4];
   const controlsArray = items.map(() => useAnimation());
+  const [gradientStop, setGradientStop] = useState(0);
   useEffect(() => {
     const animateItem = async () => {
       await controlsArray[activeIndex - 1].start(
@@ -28,7 +29,6 @@ export default function Carousel() {
         },
         { ease: "easeIn" }
       );
-      console.log("triggered:", activeIndex - 1);
     };
     if (activeIndex > 0) {
       animateItem();
@@ -69,10 +69,16 @@ export default function Carousel() {
     console.log(activeIndex);
   };
 
-  const gradientStop =
-    activeIndex > 1
-      ? activeIndex * elementWidth - 16 - 24
-      : (activeIndex * elementWidth) / 3 - 16 - 24;
+  useEffect(() => {
+    setTimeout(()=> {
+      setGradientStop(
+        activeIndex > 1
+          ? activeIndex * elementWidth - 16 - 24
+          : (activeIndex * elementWidth) / 3 - 16 - 24
+      );
+    },1100)
+    
+  }, [activeIndex]);
 
   console.log("elementwidth:", elementWidth); // Debug log
   // console.log("active indx:", activeIndex); // Debug log
@@ -116,7 +122,7 @@ export default function Carousel() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 1, delay: 2 }}
         className=" absolute top-1/2 left-0 -translate-y-1/2 z-10 px-4 mx-6"
       >
         <div className=" text-7xl text-transparent font-semibold transition-all">
