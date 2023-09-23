@@ -2,10 +2,8 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { projectImagesList } from "@/utils/projectImages";
 import {
-  animate,
   motion,
   useAnimate,
-  useAnimationControls,
 } from "framer-motion";
 import useInitialPageLoadAnimationStore from "@/stores/initialPageLoadAnimationStore";
 export default function ProjectCard({
@@ -29,9 +27,7 @@ export default function ProjectCard({
     "UX/UI Designer & Developer",
     "Developer",
   ];
-  useEffect(() => {
-    console.log("initial anim", showingInitialAnimation);
-  }, [showingInitialAnimation]);
+
 
   useEffect(() => {
     console.log(isMini, index);
@@ -50,7 +46,7 @@ export default function ProjectCard({
   const currentImage = projectImagesList[index];
   return (
     <div
-      className={`${className} flex flex-col justify-center items-center flex-1 min-w-full`}
+      className={`${className} flex flex-col justify-center items-center flex-1 min-w-full transition-all duration-0`}
     >
       {/* BG */}
       <Image

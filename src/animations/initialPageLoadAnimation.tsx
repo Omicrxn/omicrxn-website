@@ -7,7 +7,7 @@ function containerTl(boxRef: RefObject<HTMLDivElement>, setAnimationComplete:gsa
     .to(boxRef.current, { x: 0, opacity: 1 })
     .to(boxRef.current, {
       scale: 0.75,
-      mixBlendMode: "difference",
+    //   mixBlendMode: "difference",
       ease: Power2.easeOut,
       duration: 0.5,
       delay: 0.5,
