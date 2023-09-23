@@ -2,20 +2,17 @@
 import React, { useEffect, useState } from "react";
 import BackgroundGrid from "./BackgroundGrid";
 import Carousel from "./Carousel";
+import useSessionStore from "@/stores/sessionStore";
 
 export default function MainPage() {
-  const [showInitialAnimation, setShowInitialAnimation] = useState(false);
+  const { getSessionStorageShowingInitialAnimation } = useSessionStore();
   useEffect(() => {
-    const isInitialLoad = sessionStorage.getItem("initialLoadDone");
-    if (!isInitialLoad) {
-      setShowInitialAnimation(true);
-      sessionStorage.setItem("initialLoadDone", "true");
-    }
+    getSessionStorageShowingInitialAnimation();
   }, []);
   return (
     <>
-      <BackgroundGrid/>
-      <Carousel showInitialAnimation={true}/>
+      <BackgroundGrid />
+      <Carousel />
     </>
   );
 }

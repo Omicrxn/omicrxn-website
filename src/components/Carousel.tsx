@@ -1,10 +1,16 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { projectImagesList } from "@/utils/projectImages";
-import gsap, { Circ, Power2 } from "gsap";
-export default function Carousel({showInitialAnimation = false}:{showInitialAnimation:boolean}) {
+import useSessionStore from "@/stores/sessionStore";
+import useInitialPageLoadAnimationStore from "@/stores/initialPageLoadAnimationStore";
+export default function Carousel() {
+  const showingInitialAnimation = useSessionStore((state)=>state.showingInitialAnimation);
+  const trigger = useSessionStore((state)=>state.trigger);
+  const carouselContainerAnimation = useInitialPageLoadAnimationStore((state)=>state.carouselContainerAnimation);
   const box = useRef<HTMLDivElement>(null); // create a ref for the root level element (for scoping)
-  const [animationComplete, setAnimationComplete] = useState(true);
+  const animationComplete = useInitialPageLoadAnimationStore((state)=>state.animationComplete);
+  const toggleAnimationComplete = useInitialPageLoadAnimationStore((state)=>state.toggleAnimationComplete);
+  const toggleInitialAnimationComplete = useInitialPageLoadAnimationStore((state)=>state.toggleInitialAnimationComplete);
   const [intervalTime, setIntervalTime] = useState(1000);
   const [imgIndex, setIndex] = useState(0);
 
@@ -34,39 +40,22 @@ export default function Carousel({showInitialAnimation = false}:{showInitialAnim
   }, [animationComplete, intervalTime]);
 
   useEffect(() => {
-    function containerTl(){
-        const containerTimeline = gsap.timeline();
-        containerTimeline
-        .to(box.current, { x: 0,opacity:1 })
-        .to(box.current, { scale: 0.75,mixBlendMode: "difference", ease:Power2.easeOut,duration:0.5,delay:0.5,onComplete(){setAnimationComplete(false)} })
-        .to(box.current, { scale: 0.5, duration:3, ease:Circ.easeIn,onComplete(){setAnimationComplete(true)} },)
-        .to(box.current, {scaleX:1,scaleY:1,width:"37.5vw", mixBlendMode:"normal", translateX:"62.5vw",opacity:1,delay:0.5},"initialPlacement")
-        return containerTimeline;
-    }
-    function projectCardTl(){
-        const projectCardTimeline = gsap.timeline();
-        projectCardTimeline.to(".project-card-0", { opacity: 1 });
-        return projectCardTimeline
-    }
     
-    var masterTimeline = gsap.timeline();
-
-    masterTimeline.add(containerTl()).add(projectCardTl(),"<+1");
-    if(showInitialAnimation){
-        masterTimeline.play();
-    }else{
-        masterTimeline.play("initialPlacement");
+    if(trigger){
+      carouselContainerAnimation(box,showingInitialAnimation,toggleAnimationComplete,toggleInitialAnimationComplete);
     }
-  }, []);
+  }, [showingInitialAnimation]);
 
 
   return (
-    <div ref={box} className="bg-omi-black w-full flex-1 translate-x-full opacity-0">
+    <div ref={box} className="bg-omi-black w-full flex-1 flex translate-x-full opacity-0">
+     
       {projectImagesList.map((_, index) => (
         <ProjectCard
           key={index}
           className={`project-card-${index} opacity-0`}
           index={index == 0?imgIndex:index}
+          isMini={false}
         />
       ))}
     </div>
