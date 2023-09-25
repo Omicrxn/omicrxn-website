@@ -1,14 +1,12 @@
 "use client";
 import useInitialPageLoadAnimationStore from "@/stores/initialPageLoadAnimationStore";
 import { motion } from "framer-motion";
-export default function BackgroundGrid() {
-  const showingInitialAnimation = useInitialPageLoadAnimationStore(
-    (state) => state.showingInitialAnimation
-  );
+export default function BackgroundGrid({showAnimation}:{showAnimation:boolean}) {
+  
   return (
     <motion.div
       initial={{ y: "-100%" }}
-      animate={showingInitialAnimation ? {} : { y: "0%" }}
+      animate={!showAnimation ? {} : { y: "0%" }}
       transition={{ duration: 1, delay: 1 }}
       className="grid grid-cols-8 h-full w-full absolute inset-0"
     >

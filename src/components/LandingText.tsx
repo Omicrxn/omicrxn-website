@@ -12,7 +12,7 @@ export default function LandingText() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 2 }}
+      transition={{ duration:2, delay: 0.15 }}
       className=" absolute px-4 mx-6"
     >
       <div className=" text-7xl text-transparent font-semibold transition-all">

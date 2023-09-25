@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import OmicrxnLogo from "./OmicrxnLogo";
 import LandingText from "./LandingText";
+import Contact from "./Contact";
 export default function MainPage() {
   const { getSessionStorageShowingInitialAnimation } = useSessionStore();
   useEffect(() => {
@@ -18,7 +19,8 @@ export default function MainPage() {
   );
   return (
     <>
-      <BackgroundGrid />
+      <BackgroundGrid showAnimation={!showingInitialAnimation}/>
+      {!showingInitialAnimation && <Contact />}
       <Carousel />
       {showingInitialAnimation ? <OmicrxnLogo /> : <LandingText />}
     </>
