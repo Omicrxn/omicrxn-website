@@ -46,7 +46,7 @@ export default function ProjectCard({
   const currentImage = projectImagesList[index];
   return (
     <div
-      className={`${className} flex flex-col justify-center items-center flex-1 min-w-full transition-all duration-0`}
+      className={`${className} flex flex-col justify-center items-center w-full min-h-full transition-all duration-0`}
     >
       {/* BG */}
       <Image

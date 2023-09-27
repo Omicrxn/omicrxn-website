@@ -13,7 +13,7 @@ const useSessionStore = create<SessionState>()((set, get) => ({
     const isInitialLoad = sessionStorage.getItem("initialLoadDone");
     if (!isInitialLoad) {
       set({ showingInitialAnimation: true });
-    //   sessionStorage.setItem("initialLoadDone", "true");
+      // sessionStorage.setItem("initialLoadDone", "true");
     }
     set({ trigger: true });
   },

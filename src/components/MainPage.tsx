@@ -9,6 +9,7 @@ import Image from "next/image";
 import OmicrxnLogo from "./OmicrxnLogo";
 import LandingText from "./LandingText";
 import Contact from "./Contact";
+import NextButton from "./NextButton";
 export default function MainPage() {
   const { getSessionStorageShowingInitialAnimation } = useSessionStore();
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function MainPage() {
       {!showingInitialAnimation && <Contact />}
       <Carousel />
       {showingInitialAnimation ? <OmicrxnLogo /> : <LandingText />}
+      <NextButton/>
     </>
   );
 }

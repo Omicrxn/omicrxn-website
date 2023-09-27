@@ -3,6 +3,7 @@ import ProjectCard from "./ProjectCard";
 import { projectImagesList } from "@/utils/projectImages";
 import useSessionStore from "@/stores/sessionStore";
 import useInitialPageLoadAnimationStore from "@/stores/initialPageLoadAnimationStore";
+import useCarouselStore from "@/stores/carouselStore";
 export default function Carousel() {
   const showingInitialAnimation = useSessionStore((state)=>state.showingInitialAnimation);
   const trigger = useSessionStore((state)=>state.trigger);
@@ -48,12 +49,12 @@ export default function Carousel() {
 
 
   return (
-    <div ref={box} className="bg-omi-black w-full flex-1 flex translate-x-full opacity-0">
+    <div ref={box} className="project-container bg-omi-black w-full flex-1 flex translate-x-full opacity-0">
      
       {projectImagesList.map((_, index) => (
         <ProjectCard
           key={index}
-          className={`project-card-${index} opacity-0`}
+          className={`project-card-${index} hidden z-[${projectImagesList.length - index}]`}
           index={index == 0?imgIndex:index}
           isMini={false}
         />
