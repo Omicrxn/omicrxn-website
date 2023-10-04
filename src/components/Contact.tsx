@@ -6,7 +6,7 @@ export default function Contact() {
   return (
     <div className='absolute top-1/2 -translate-y-1/2 right-0 w-[37.5%] flex flex-col justify-center items-center'>
         <h2 className='text-2xl font-bold'>Want to make your dreams true?</h2>
-        <a className='text-xl font-bold underline underline-offset-[3px]' href='mailto:alexavila0128@gmail.com'>Let's Connect</a>
+        <a className='text-xl font-bold underline underline-offset-[3px]' href='mailto:alexavila0128@gmail.com'>Let&apos;s Connect</a>
         <div className='flex gap-2 pt-4'>
             <Link href="mailto:alexavila0128@gmail.com" >
                 <Image src={"/icons/social/mail.svg"} width={24} height={24} alt='Gmail'/>

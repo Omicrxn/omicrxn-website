@@ -14,7 +14,7 @@ export default function AboutPage() {
       <BackgroundGrid showAnimation={true}/>
       <div className="z-10">
         <h1 className="text-5xl font-semibold p-4 m-6 w-2/3">
-          Hi! I'm Alex
+          Hi! I&apos;m Alex
           <br /> A passionate software developer that loves building beautiful
           experiences.
         </h1>
