@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export default function PageWrapper({
   children,
-  shouldAnimate = true,
   className,
 }: {
   children: React.ReactNode;
