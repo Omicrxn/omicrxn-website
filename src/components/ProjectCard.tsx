@@ -6,6 +6,7 @@ import {
   useAnimate,
 } from "framer-motion";
 import useInitialPageLoadAnimationStore from "@/stores/initialPageLoadAnimationStore";
+import useCarouselStore from "@/stores/carouselStore";
 export default function ProjectCard({
   index,
   className,
@@ -19,6 +20,7 @@ export default function ProjectCard({
     (state) => state.showingInitialAnimation
   );
   const [logoScope, logoAnimate] = useAnimate();
+  const setProjectCardRef = useCarouselStore((state)=>state.setProjectCardRef);
   const projectNames = ["Double U", "Phage", "Dune", "Vasek", "JR"];
   const projectCategories = [
     "UX/UI Designer & Developer",
@@ -31,7 +33,9 @@ export default function ProjectCard({
 
   useEffect(() => {
     console.log(isMini, index);
+
     async function animateLogo() {
+      console.log(isMini, index);
       await logoAnimate(
         logoScope.current,
         { scale: 0.5, y: "-35vh" },
@@ -46,7 +50,8 @@ export default function ProjectCard({
   const currentImage = projectImagesList[index];
   return (
     <div
-      className={`${className} flex flex-col justify-center items-center w-full min-h-full transition-all duration-0`}
+    ref={index === 0 ? (ref) => setProjectCardRef(ref) : null}
+        className={`${className} flex flex-col justify-center items-center w-full min-h-full transition-all duration-0`}
     >
       {/* BG */}
       <Image
@@ -59,13 +64,14 @@ export default function ProjectCard({
         <>
           {/* Logo */}
           <motion.img
+            ref={logoScope}
             src={`/projectLogos/${index}${isMini ? "_min" : ""}.png`}
             key={index}
             initial={{ y: -10, opacity: 0 }}
             animate={{ y:0,opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             alt="Double U Project"
-            className={`z-10 w-[180px] h-[180px] object-contain my-auto`}
+            className={`z-10 w-[180px] h-[180px] object-contain my-auto transition-all duration-75`}
           />
           {/* Project Name */}
           <motion.div

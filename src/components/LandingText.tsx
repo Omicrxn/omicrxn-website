@@ -1,13 +1,52 @@
+import useCarouselStore from "@/stores/carouselStore";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function LandingText() {
-    const gradientStop = 0;
-    const gradientStyle = {
-        backgroundImage: `linear-gradient(90deg, white ${gradientStop}px, black ${gradientStop}px)`,
-        backgroundClip: "text",
-        WebkitBackgroundClip: "text",
-      };
+  const [gradientStop, setGradientStop] = useState(0);
+  const activeIndex = useCarouselStore((state)=>state.activeIndex);
+  const projectCardRef = useCarouselStore((state)=>state.projectCardRef);
+  const nextButtonRef = useCarouselStore((state)=>state.nextButtonRef);
+  const [elementWidth, setElementWidth] = useState(0);
+
+  useEffect(() => {
+    if (projectCardRef) {
+      setElementWidth(projectCardRef.offsetWidth);
+    }
+
+    const updateWidth = () => {
+      if (projectCardRef) {
+        setElementWidth(projectCardRef.offsetWidth);
+      }
+    };
+
+    if (nextButtonRef) {
+      nextButtonRef.addEventListener("click", updateWidth);
+    }
+
+    window.addEventListener("resize", updateWidth);
+
+    return () => {
+      updateWidth();
+    };
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setGradientStop(
+        activeIndex > 1
+          ? activeIndex * elementWidth - 16 - 24
+          : (activeIndex * elementWidth) / 3 - 16 - 24
+      );
+    }, 1100);
+  }, [activeIndex]);
+
+  const gradientStyle = {
+    backgroundImage: `linear-gradient(90deg, white ${gradientStop}px, black ${gradientStop}px)`,
+    backgroundClip: "text",
+    WebkitBackgroundClip: "text",
+  };
+
         return (
     <motion.div
       initial={{ opacity: 0 }}

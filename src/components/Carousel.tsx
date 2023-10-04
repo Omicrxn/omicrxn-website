@@ -12,6 +12,7 @@ export default function Carousel() {
   const animationComplete = useInitialPageLoadAnimationStore((state)=>state.animationComplete);
   const toggleAnimationComplete = useInitialPageLoadAnimationStore((state)=>state.toggleAnimationComplete);
   const toggleInitialAnimationComplete = useInitialPageLoadAnimationStore((state)=>state.toggleInitialAnimationComplete);
+  const activeIndexesList = useCarouselStore((state)=>state.activeIndexesList);
   const [intervalTime, setIntervalTime] = useState(1000);
   const [imgIndex, setIndex] = useState(0);
 
@@ -53,10 +54,11 @@ export default function Carousel() {
      
       {projectImagesList.map((_, index) => (
         <ProjectCard
+          // ref={index === 0 ? setProjectCardRef : null}
           key={index}
           className={`project-card-${index} hidden z-[${projectImagesList.length - index}]`}
           index={index == 0?imgIndex:index}
-          isMini={false}
+          isMini={activeIndexesList.includes(index)}
         />
       ))}
     </div>
